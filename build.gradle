@@ -1,0 +1,48 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'io.freefair.lombok' version '8.6'
+	id 'com.netflix.dgs.codegen' version '6.1.5'
+	id 'com.diffplug.spotless' version '6.25.0'
+}
+
+group = 'net.frey'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation(platform('com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:8.5.5'))
+	implementation 'com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter'
+	implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	implementation 'net.datafaker:datafaker:2.1.0'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+generateJava {
+	packageName = 'net.frey.graphql.generated'
+}
+
+spotless {
+	java {
+		palantirJavaFormat()
+	}
+}
+
+compileJava.dependsOn 'spotlessApply'
