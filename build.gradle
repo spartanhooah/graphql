@@ -1,5 +1,5 @@
 plugins {
-	id 'java'
+	id 'groovy'
 	id 'org.springframework.boot' version '3.2.4'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'io.freefair.lombok' version '8.6'
@@ -25,10 +25,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
 	implementation 'net.datafaker:datafaker:2.1.0'
+	implementation 'org.apache.commons:commons-lang3'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+
+	testImplementation platform('org.spockframework:spock-bom:2.4-M4-groovy-4.0')
+	testImplementation 'org.spockframework:spock-core'
+	testImplementation 'org.spockframework:spock-spring'
 }
 
 tasks.named('test') {
