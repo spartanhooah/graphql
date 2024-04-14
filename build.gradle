@@ -42,6 +42,7 @@ tasks.named('test') {
 
 generateJava {
 	packageName = 'net.frey.graphql.generated'
+	generateClient = true
 }
 
 spotless {
