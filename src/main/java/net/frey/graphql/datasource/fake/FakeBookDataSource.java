@@ -19,10 +19,10 @@ public class FakeBookDataSource {
 
     @Autowired
     public FakeBookDataSource(Faker faker) {
-        BOOK_LIST.addAll(getBookStream(faker));
+        BOOK_LIST.addAll(getBooks(faker));
     }
 
-    private static @NotNull List<Book> getBookStream(Faker faker) {
+    private static @NotNull List<Book> getBooks(Faker faker) {
         return IntStream.range(0, 20)
                 .mapToObj(number -> {
                     var addresses = IntStream.range(

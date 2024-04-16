@@ -3,4 +3,5 @@ type Query {
     oneHello: Hello
     books(author: String): [Book]
     booksByReleased(releaseHistory: ReleaseHistoryInput!): [Book]
+    mobileApps(mobileAppFilter: MobileAppFilter): [MobileApp]
 }
