@@ -1,0 +1,30 @@
+"""Example of a documentation string"""
+enum PetDietType {
+    HERBIVORE, CARNIVORE, OMNIVORE
+}
+
+interface Pet {
+    """Doc strings can contain <strong>HTML</strong> (but it might not render on all clients)"""
+    name: String!
+    diet: PetDietType
+    breed: String
+}
+
+type Dog implements Pet {
+    name: String!
+    diet: PetDietType
+    breed: String
+    size: String
+    coatLength: String
+}
+
+type Cat implements Pet {
+    name: String!
+    diet: PetDietType
+    breed: String
+    registry: String
+}
+
+input PetFilter {
+    petType: String
+}
