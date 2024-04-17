@@ -1,13 +1,18 @@
 package net.frey.graphql.datasource.fake;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 import net.datafaker.Faker;
 import net.frey.graphql.generated.types.Address;
 import net.frey.graphql.generated.types.Author;
 import net.frey.graphql.generated.types.MobileApp;
+import net.frey.graphql.generated.types.MobileAppCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -38,18 +43,27 @@ public class FakeMobileAppDataSource {
                             .name(faker.app().author())
                             .originCountry(faker.country().name())
                             .build();
+
+                    URL homepage;
+                    try {
+                        homepage = new URL("https://" + faker.internet().url());
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     return MobileApp.newBuilder()
                             .name(faker.app().name())
                             .author(author)
                             .version(faker.app().version())
                             .platform(randomMobileAppPlatform())
-                            //                    .appId(UUID.randomUUID().toString())
-                            //                    .releaseDate(LocalDate.now().minusDays(faker.random().nextInt(365)))
-                            //                    .downloaded(faker.number().numberBetween(1, 1_500_000))
-                            //                    .homepage(new URL("https://" + faker.internet().url()))
-                            //                    .category(MobileAppCategory.values()[
-                            //                            faker.random().nextInt(MobileAppCategory.values().length)]
-                            //                    )
+                            .appId(UUID.randomUUID().toString())
+                            .releaseDate(
+                                    LocalDate.now().minusDays(faker.random().nextInt(365)))
+                            .downloads(faker.number().numberBetween(1, 1_500_000))
+                            .homepage(homepage)
+                            .category(
+                                    MobileAppCategory.values()[
+                                            faker.random().nextInt(MobileAppCategory.values().length)])
                             .build();
                 })
                 .toList();
