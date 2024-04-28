@@ -17,7 +17,7 @@ public class FakeHelloMutation {
     //    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.AddHello)
     // Below is equivalent when the method name and input argument are the same as the graphql definition
     @DgsMutation
-    public int addHello(@InputArgument(name = HELLOINPUT.TYPE_NAME) HelloInput helloInput) {
+    public int addHello(@InputArgument(name = "helloInput") HelloInput helloInput) {
         var hello = new Hello(helloInput.getText(), helloInput.getRandomNumber());
         HELLO_LIST.add(hello);
 
@@ -25,7 +25,7 @@ public class FakeHelloMutation {
     }
 
     @DgsData(parentType = MUTATION.TYPE_NAME, field = MUTATION.ReplaceHelloText)
-    public List<Hello> replaceHelloText(@InputArgument(name = HELLOINPUT.TYPE_NAME) HelloInput helloInput) {
+    public List<Hello> replaceHelloText(@InputArgument(name = "helloInput") HelloInput helloInput) {
         HELLO_LIST.stream()
                 .filter(hello -> hello.getRandomNumber() == helloInput.getRandomNumber())
                 .forEach(hello -> hello.setText(helloInput.getText()));
