@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
 	implementation(platform('com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:8.5.5'))
 	implementation 'com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter'
 	implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars'
@@ -27,6 +28,8 @@ dependencies {
 
 	implementation 'net.datafaker:datafaker:2.1.0'
 	implementation 'org.apache.commons:commons-lang3'
+
+	runtimeOnly 'org.postgresql:r2dbc-postgresql'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
