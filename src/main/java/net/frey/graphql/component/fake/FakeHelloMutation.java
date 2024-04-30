@@ -7,7 +7,6 @@ import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.InputArgument;
 import java.util.List;
-import net.frey.graphql.generated.DgsConstants.HELLOINPUT;
 import net.frey.graphql.generated.DgsConstants.MUTATION;
 import net.frey.graphql.generated.types.Hello;
 import net.frey.graphql.generated.types.HelloInput;

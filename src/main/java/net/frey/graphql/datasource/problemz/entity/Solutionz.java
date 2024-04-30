@@ -1,15 +1,13 @@
 package net.frey.graphql.datasource.problemz.entity;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 @Data
+@Entity
 @Table(name = "solutionz")
 public class Solutionz {
     @Id

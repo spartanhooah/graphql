@@ -1,5 +1,10 @@
 package net.frey.graphql.mapping;
 
+import static net.frey.graphql.generated.types.SolutionType.EXAMPLE;
+import static net.frey.graphql.generated.types.SolutionType.REFERENCE;
+
+import java.time.ZoneOffset;
+import java.util.List;
 import net.frey.graphql.datasource.problemz.entity.Problemz;
 import net.frey.graphql.datasource.problemz.entity.Solutionz;
 import net.frey.graphql.datasource.problemz.entity.Userz;
@@ -10,12 +15,6 @@ import net.frey.graphql.generated.types.User;
 import net.frey.graphql.generated.types.UserAuthToken;
 import org.apache.commons.lang3.StringUtils;
 import org.ocpsoft.prettytime.PrettyTime;
-
-import java.time.ZoneOffset;
-import java.util.List;
-
-import static net.frey.graphql.generated.types.SolutionType.EXAMPLE;
-import static net.frey.graphql.generated.types.SolutionType.REFERENCE;
 
 public class GraphqlBeanMapper {
     private static final PrettyTime PRETTY_TIME = new PrettyTime();
@@ -39,7 +38,9 @@ public class GraphqlBeanMapper {
         var result = new Problem();
         var createDateTime = original.getCreationTimestamp().atOffset(ZONE_OFFSET);
         var author = mapToGraphql(original.getCreatedBy());
-        var solutions = original.getSolutions().stream().map(GraphqlBeanMapper::mapToGraphql).toList();
+        var solutions = original.getSolutions().stream()
+                .map(GraphqlBeanMapper::mapToGraphql)
+                .toList();
         var tags = List.of(original.getTags().split(","));
 
         result.setAuthor(author);

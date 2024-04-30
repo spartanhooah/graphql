@@ -1,5 +1,6 @@
 package net.frey.graphql.datasource.problemz.entity;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.net.URL;
@@ -9,6 +10,7 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 @Data
+@Entity
 @Table(name = "userz")
 public class Userz {
     @Id

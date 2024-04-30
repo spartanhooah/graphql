@@ -16,7 +16,7 @@ type Query {
     additionalOnRequest: String
 
     me: User!
-    problemLatestList: [Problem!]
+    latestProblems: [Problem!]
     itemSearch(filter: SearchItemFilter): [SearchableItem]
     problemById(id: ID!): Problem!
 }
