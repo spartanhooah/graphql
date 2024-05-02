@@ -20,11 +20,11 @@ import reactor.core.publisher.Flux;
 @DgsComponent
 @RequiredArgsConstructor
 public class ProblemDataResolver {
-    private final ProblemzQueryService problemzQueryService;
+    private final ProblemzQueryService queryService;
 
     @DgsData(parentType = QUERY_TYPE, field = QUERY.LatestProblems)
     public List<Problem> getLatestProblems() {
-        return problemzQueryService.latestProblemz().stream()
+        return queryService.latestProblemz().stream()
                 .map(GraphqlBeanMapper::mapToGraphql)
                 .toList();
     }

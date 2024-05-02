@@ -9,7 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 @Data
 @Entity
-@Table(name = "problemz")
+@Table(name = "problemz", schema = "problemz")
 public class Problemz {
     @Id
     private UUID id;

@@ -19,14 +19,13 @@ public class SolutionDataResolver {
     @DgsData(parentType = MUTATION_TYPE, field = MUTATION.SolutionCreate)
     public SolutionResponse createSolution(
             @RequestHeader(name = "authToken") String authToken,
-            @InputArgument(name = "newSolution") SolutionCreateInput solution) {
+            @InputArgument(name = "solution") SolutionCreateInput solution) {
         return null;
     }
 
     @DgsData(parentType = MUTATION_TYPE, field = MUTATION.SolutionVote)
     public SolutionResponse voteOnSolution(
-            @RequestHeader(name = "authToken") String authToken,
-            @InputArgument(name = "newVote") SolutionVoteInput vote) {
+            @RequestHeader(name = "authToken") String authToken, @InputArgument(name = "vote") SolutionVoteInput vote) {
         return null;
     }
 
