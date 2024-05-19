@@ -20,4 +20,8 @@ public class ProblemzQueryService {
     public Optional<Problemz> problemzById(UUID problemzId) {
         return repository.findById(problemzId);
     }
+
+    public List<Problemz> problemzByKeyword(String keyword) {
+        return repository.findByKeyword("%" + keyword + "%");
+    }
 }
