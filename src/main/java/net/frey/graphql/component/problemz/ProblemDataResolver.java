@@ -1,14 +1,13 @@
 package net.frey.graphql.component.problemz;
 
-import static net.frey.graphql.generated.DgsConstants.QUERY_TYPE;
-
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
+import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import net.frey.graphql.generated.DgsConstants;
-import net.frey.graphql.generated.DgsConstants.QUERY;
 import net.frey.graphql.generated.types.Problem;
 import net.frey.graphql.generated.types.ProblemCreateInput;
 import net.frey.graphql.generated.types.ProblemResponse;
@@ -22,16 +21,19 @@ import reactor.core.publisher.Flux;
 public class ProblemDataResolver {
     private final ProblemzQueryService queryService;
 
-    @DgsData(parentType = QUERY_TYPE, field = QUERY.LatestProblems)
+    @DgsQuery(field = "latestProblems")
     public List<Problem> getLatestProblems() {
         return queryService.latestProblemz().stream()
                 .map(GraphqlBeanMapper::mapToGraphql)
                 .toList();
     }
 
-    @DgsData(parentType = QUERY_TYPE, field = QUERY.ProblemById)
-    public Problem getProblemDetail(@InputArgument(name = "id") String problemId) {
-        return null;
+    @DgsQuery(field = "problemById")
+    public Problem getProblemById(@InputArgument(name = "id") String problemId) {
+        return queryService
+                .problemzById(UUID.fromString(problemId))
+                .map(GraphqlBeanMapper::mapToGraphql)
+                .orElseThrow(() -> new IllegalArgumentException("No problem exists with ID" + problemId));
     }
 
     @DgsData(parentType = DgsConstants.MUTATION_TYPE, field = DgsConstants.MUTATION.ProblemCreate)

@@ -1,6 +1,8 @@
 package net.frey.graphql.service.query;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import net.frey.graphql.datasource.problemz.entity.Problemz;
 import net.frey.graphql.datasource.problemz.repository.ProblemzRepository;
@@ -13,5 +15,9 @@ public class ProblemzQueryService {
 
     public List<Problemz> latestProblemz() {
         return repository.findAllByOrderByCreationTimestampDesc();
+    }
+
+    public Optional<Problemz> problemzById(UUID problemzId) {
+        return repository.findById(problemzId);
     }
 }

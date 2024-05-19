@@ -4,6 +4,7 @@ import static net.frey.graphql.generated.types.SolutionType.EXAMPLE;
 import static net.frey.graphql.generated.types.SolutionType.REFERENCE;
 
 import java.time.ZoneOffset;
+import java.util.Comparator;
 import java.util.List;
 import net.frey.graphql.datasource.problemz.entity.Problemz;
 import net.frey.graphql.datasource.problemz.entity.Solutionz;
@@ -40,6 +41,7 @@ public class GraphqlBeanMapper {
         var author = mapToGraphql(original.getCreatedBy());
         var solutions = original.getSolutions().stream()
                 .map(GraphqlBeanMapper::mapToGraphql)
+                .sorted(Comparator.comparing(Solution::getCreateDateTime).reversed())
                 .toList();
         var tags = List.of(original.getTags().split(","));
 

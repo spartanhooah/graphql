@@ -6,6 +6,6 @@ spring:
       ddl-auto: none
     show-sql: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=problemz
+    url: jdbc:postgresql://localhost:5432/problemz?currentSchema=problemz
     username: postgres
     password: postgres
