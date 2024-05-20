@@ -1,30 +1,46 @@
 package net.frey.graphql.component.problemz;
 
 import com.netflix.graphql.dgs.DgsComponent;
-import com.netflix.graphql.dgs.DgsData;
+import com.netflix.graphql.dgs.DgsMutation;
+import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
-import net.frey.graphql.generated.DgsConstants;
+import lombok.RequiredArgsConstructor;
+import net.frey.graphql.exception.ProblemzAuthenticationException;
 import net.frey.graphql.generated.types.*;
+import net.frey.graphql.mapping.GraphqlBeanMapper;
+import net.frey.graphql.service.command.UserzCommandService;
+import net.frey.graphql.service.query.UserzQueryService;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 @DgsComponent
+@RequiredArgsConstructor
 public class UserDataResolver {
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.Me)
+    private final UserzCommandService commandService;
+    private final UserzQueryService queryService;
+
+    @DgsQuery(field = "me")
     public User accountInfo(@RequestHeader(name = "authToken") String authToken) {
-        return null;
+        return queryService
+                .findUserzByAuthToken(authToken)
+                .map(GraphqlBeanMapper::mapToGraphql)
+                .orElseThrow(() -> new ProblemzAuthenticationException("User auth token not found"));
     }
 
-    @DgsData(parentType = DgsConstants.MUTATION_TYPE, field = DgsConstants.MUTATION.UserCreate)
+    @DgsMutation(field = "userCreate")
     public UserResponse createUser(@InputArgument(name = "user") UserCreateInput userCreateInput) {
         return null;
     }
 
-    @DgsData(parentType = DgsConstants.MUTATION_TYPE, field = DgsConstants.MUTATION.UserLogin)
+    @DgsMutation
     public UserResponse userLogin(@InputArgument(name = "user") UserLoginInput userLoginInput) {
-        return null;
+        var token = GraphqlBeanMapper.mapToGraphql(
+                commandService.login(userLoginInput.getUsername(), userLoginInput.getPassword()));
+        var userInfo = accountInfo(token.getAuthToken());
+
+        return UserResponse.newBuilder().authToken(token).user(userInfo).build();
     }
 
-    @DgsData(parentType = DgsConstants.MUTATION_TYPE, field = DgsConstants.MUTATION.UserActivation)
+    @DgsMutation
     public UserActivationResponse userActivation(
             @InputArgument(name = "user") UserActivationInput userActivationInput) {
         return null;

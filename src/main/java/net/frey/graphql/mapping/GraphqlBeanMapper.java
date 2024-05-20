@@ -3,14 +3,18 @@ package net.frey.graphql.mapping;
 import static net.frey.graphql.generated.types.SolutionType.EXAMPLE;
 import static net.frey.graphql.generated.types.SolutionType.REFERENCE;
 
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import net.frey.graphql.datasource.problemz.entity.Problemz;
 import net.frey.graphql.datasource.problemz.entity.Solutionz;
 import net.frey.graphql.datasource.problemz.entity.Userz;
 import net.frey.graphql.datasource.problemz.entity.UserzToken;
 import net.frey.graphql.generated.types.Problem;
+import net.frey.graphql.generated.types.ProblemCreateInput;
 import net.frey.graphql.generated.types.Solution;
 import net.frey.graphql.generated.types.User;
 import net.frey.graphql.generated.types.UserAuthToken;
@@ -81,6 +85,20 @@ public class GraphqlBeanMapper {
 
         result.setAuthToken(original.getAuthToken());
         result.setExpiryTime(original.getExpiryTimestamp().atOffset(ZONE_OFFSET));
+
+        return result;
+    }
+
+    public static Problemz mapToEntity(ProblemCreateInput input, Userz author) {
+        var result = new Problemz();
+
+        result.setContent(input.getContent());
+        result.setCreatedBy(author);
+        result.setId(UUID.randomUUID());
+        result.setSolutions(Collections.emptyList());
+        result.setTags(String.join(",", input.getTags()));
+        result.setTitle(input.getTitle());
+        result.setCreationTimestamp(LocalDateTime.now());
 
         return result;
     }
