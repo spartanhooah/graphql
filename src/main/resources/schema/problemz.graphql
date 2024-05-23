@@ -75,7 +75,7 @@ input ProblemCreateInput {
 
 input SolutionCreateInput {
     content: String!
-    category: String!
+    type: String!
     problemId: ID!
 }
 

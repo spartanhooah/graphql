@@ -39,7 +39,7 @@ public class ProblemDataResolver {
         return problemzQueryService
                 .problemzById(UUID.fromString(problemId))
                 .map(GraphqlBeanMapper::mapToGraphql)
-                .orElseThrow(() -> new DgsEntityNotFoundException("No problem exists with ID" + problemId));
+                .orElseThrow(() -> new DgsEntityNotFoundException("No problem exists with ID " + problemId));
     }
 
     @DgsMutation(field = "problemCreate")
