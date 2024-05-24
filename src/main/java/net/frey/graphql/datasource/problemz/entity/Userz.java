@@ -7,7 +7,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
@@ -16,7 +16,7 @@ public class Userz {
     @Id
     private UUID id;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime creationTimestamp;
 
     private String username;

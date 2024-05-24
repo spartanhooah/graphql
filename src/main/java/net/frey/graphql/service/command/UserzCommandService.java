@@ -3,6 +3,7 @@ package net.frey.graphql.service.command;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import net.frey.graphql.datasource.problemz.entity.Userz;
 import net.frey.graphql.datasource.problemz.entity.UserzToken;
 import net.frey.graphql.datasource.problemz.repository.UserzRepository;
 import net.frey.graphql.datasource.problemz.repository.UserzTokenRepository;
@@ -40,5 +41,9 @@ public class UserzCommandService {
         token.setExpiryTimestamp(now.plusHours(2));
 
         return tokenRepository.save(token);
+    }
+
+    public Userz createUserz(Userz userz) {
+        return userzRepository.save(userz);
     }
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
@@ -15,7 +15,7 @@ public class UserzToken {
     @Id
     private UUID userId;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime creationTimestamp;
 
     private String authToken;

@@ -28,7 +28,12 @@ public class UserDataResolver {
 
     @DgsMutation(field = "userCreate")
     public UserResponse createUser(@InputArgument(name = "user") UserCreateInput userCreateInput) {
-        return null;
+        var userz = GraphqlBeanMapper.mapToEntity(userCreateInput);
+        var saved = commandService.createUserz(userz);
+
+        return UserResponse.newBuilder()
+                .user(GraphqlBeanMapper.mapToGraphql(saved))
+                .build();
     }
 
     @DgsMutation

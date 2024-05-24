@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
@@ -14,7 +14,7 @@ public class Solutionz {
     @Id
     private UUID id;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime creationTimestamp;
 
     private String content;

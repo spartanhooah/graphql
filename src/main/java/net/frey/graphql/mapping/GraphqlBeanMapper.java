@@ -1,10 +1,10 @@
 package net.frey.graphql.mapping;
 
+import static java.time.LocalDateTime.now;
 import static java.util.UUID.randomUUID;
 import static net.frey.graphql.generated.types.SolutionType.EXAMPLE;
 import static net.frey.graphql.generated.types.SolutionType.REFERENCE;
 
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,6 +19,8 @@ import net.frey.graphql.generated.types.Solution;
 import net.frey.graphql.generated.types.SolutionCreateInput;
 import net.frey.graphql.generated.types.User;
 import net.frey.graphql.generated.types.UserAuthToken;
+import net.frey.graphql.generated.types.UserCreateInput;
+import net.frey.graphql.utility.HashUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -99,7 +101,7 @@ public class GraphqlBeanMapper {
         result.setSolutions(Collections.emptyList());
         result.setTags(String.join(",", input.getTags()));
         result.setTitle(input.getTitle());
-        result.setCreationTimestamp(LocalDateTime.now());
+        //        result.setCreationTimestamp(now());
 
         return result;
     }
@@ -112,7 +114,22 @@ public class GraphqlBeanMapper {
         result.setCreatedBy(author);
         result.setId(randomUUID());
         result.setProblemz(problemz);
-        result.setCreationTimestamp(LocalDateTime.now());
+        result.setCreationTimestamp(now());
+
+        return result;
+    }
+
+    public static Userz mapToEntity(UserCreateInput original) {
+        var result = new Userz();
+
+        result.setId(randomUUID());
+        result.setHashedPassword(HashUtil.hashBcrypt(original.getPassword()));
+        result.setAvatar(original.getAvatar());
+        result.setEmail(original.getEmail());
+        result.setUsername(original.getUsername());
+        result.setDisplayName(original.getDisplayName());
+        result.setActive(true);
+        //        result.setCreationTimestamp(now());
 
         return result;
     }

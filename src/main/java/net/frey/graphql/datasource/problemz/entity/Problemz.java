@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
@@ -20,7 +20,7 @@ public class Problemz {
     @Id
     private UUID id;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime creationTimestamp;
 
     private String title;
