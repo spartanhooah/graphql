@@ -25,4 +25,5 @@ public class Userz {
     private URL avatar;
     private String displayName;
     private boolean active;
+    private String userRole;
 }

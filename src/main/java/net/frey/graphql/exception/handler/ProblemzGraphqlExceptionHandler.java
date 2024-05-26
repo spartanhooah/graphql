@@ -1,12 +1,14 @@
 package net.frey.graphql.exception.handler;
 
 import com.netflix.graphql.dgs.exceptions.DefaultDataFetcherExceptionHandler;
+import com.netflix.graphql.types.errors.ErrorType;
 import com.netflix.graphql.types.errors.TypedGraphQLError;
 import graphql.execution.DataFetcherExceptionHandler;
 import graphql.execution.DataFetcherExceptionHandlerParameters;
 import graphql.execution.DataFetcherExceptionHandlerResult;
 import java.util.concurrent.CompletableFuture;
 import net.frey.graphql.exception.ProblemzAuthenticationException;
+import net.frey.graphql.exception.ProblemzPermissionException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,6 +25,18 @@ public class ProblemzGraphqlExceptionHandler implements DataFetcherExceptionHand
                     .message(exception.getMessage())
                     .path(handlerParameters.getPath())
                     .errorType(new ProblemzErrorDetail())
+                    .build();
+
+            var result = DataFetcherExceptionHandlerResult.newResult()
+                    .error(graphqlError)
+                    .build();
+
+            return CompletableFuture.completedFuture(result);
+        } else if (exception instanceof ProblemzPermissionException) {
+            var graphqlError = TypedGraphQLError.newBuilder()
+                    .message(exception.getMessage())
+                    .path(handlerParameters.getPath())
+                    .errorType(ErrorType.PERMISSION_DENIED)
                     .build();
 
             var result = DataFetcherExceptionHandlerResult.newResult()

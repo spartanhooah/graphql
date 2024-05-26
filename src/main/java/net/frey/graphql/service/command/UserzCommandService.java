@@ -1,6 +1,7 @@
 package net.frey.graphql.service.command;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import net.frey.graphql.datasource.problemz.entity.Userz;
@@ -45,5 +46,11 @@ public class UserzCommandService {
 
     public Userz createUserz(Userz userz) {
         return userzRepository.save(userz);
+    }
+
+    public Optional<Userz> activateUser(String username, boolean isActive) {
+        userzRepository.activateUser(username, isActive);
+
+        return userzRepository.findByUsernameIgnoreCase(username);
     }
 }
