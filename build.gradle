@@ -22,13 +22,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation platform('com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:8.5.5')
+	implementation platform('com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:8.6.0')
 	implementation 'com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter'
 	implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars'
 	implementation 'com.netflix.graphql.dgs:graphql-dgs-subscriptions-websockets-autoconfigure'
 
-	implementation 'net.datafaker:datafaker:2.1.0'
-	implementation 'org.ocpsoft.prettytime:prettytime:5.0.7.Final'
+	implementation 'net.datafaker:datafaker:2.2.2'
+	implementation 'org.ocpsoft.prettytime:prettytime:5.0.8.Final'
 	implementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
 	implementation 'org.apache.commons:commons-lang3'
 
