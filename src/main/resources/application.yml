@@ -4,6 +4,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
   datasource:
     url: jdbc:postgresql://localhost:5432/problemz?currentSchema=problemz
